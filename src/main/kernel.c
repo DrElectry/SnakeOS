@@ -3,7 +3,7 @@
 void kernel_main(void) {
 
     vga_generate_pallete();
-    vga_cls(1);
+    vga_cls(0);
 
     vga_print(0, 0, "Hello, world!", 255);
 
