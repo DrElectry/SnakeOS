@@ -15,6 +15,6 @@ void print(const char* str) {
 }
 
 void kernel_main(void) {
-    print("Imagine space invaders.");
+    print("Imagine space invaders");
     while(1) asm("hlt");
 }
