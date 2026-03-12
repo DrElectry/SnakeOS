@@ -68,7 +68,7 @@ main: ; Daniel
     mov sp, bp              ; at 0x7c00 (there are 638 kB of free memory there).
 
     mov bx, KERNEL_OFFSET
-    mov dh, 2               ; offset es:bx. In this case we do not need to use the extended segment
+    mov dh, 20               ; offset es:bx. In this case we do not need to use the extended segment
     mov dl, [BOOT_DRIVE]
     call disk_load
 
