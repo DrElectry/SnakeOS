@@ -68,7 +68,7 @@ main: ; Daniel
     mov sp, bp              ; at 0x7c00 (there are 638 kB of free memory there).
 
     mov bx, KERNEL_OFFSET
-    mov dh, 20               ; offset es:bx. In this case we do not need to use the extended segment
+    mov dh, 50               ; sectors to load kernel (increased for full kernel+IDT)
     mov dl, [BOOT_DRIVE]
     call disk_load
 
@@ -122,8 +122,8 @@ pm_main: ; The COOLER Daniel
     mov ebp, 0x90000
     mov esp, ebp
 
-    mov ebx, MSG_PROT_MODE
-    call print_string_pm
+    ; mov ebx, MSG_PROT_MODE  ; disabled to avoid textmode write in VESA
+    ; call print_string_pm
 
     jmp CODE_SEG:0x1000
 

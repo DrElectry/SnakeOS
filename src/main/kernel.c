@@ -1,6 +1,11 @@
 #include "vga.h"
+#include "idt.h"
 
 void kernel_main(void) {
+    idt_init();
+
+    asm volatile ("sti");
+
     vga_generate_pallete();
     for (int y = 0; y < 200; y++) {
         unsigned char color = y * 255 / 199;
