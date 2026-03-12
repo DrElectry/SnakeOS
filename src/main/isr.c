@@ -11,7 +11,7 @@ void isr8_handler() {
 }
 
 void isr13_handler() {
-    vga_print(0,0,"page fault", 255);
+    vga_print(0,0,"protection fault", 255);
     while (1) {}
 }
 
