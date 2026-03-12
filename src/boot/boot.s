@@ -61,9 +61,11 @@ disk_error:
 main: ; Daniel
     mov [BOOT_DRIVE], dl
 
+    mov ax, 0x13
+    int 0x10 ; prestige 320x200x256 text mode
+
     mov bp, 0x9000          ; Set up the stack. This gives us 5 kB above the loaded boot sector
     mov sp, bp              ; at 0x7c00 (there are 638 kB of free memory there).
-
 
     mov bx, KERNEL_OFFSET
     mov dh, 2               ; offset es:bx. In this case we do not need to use the extended segment
