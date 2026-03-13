@@ -68,7 +68,7 @@ main: ; Daniel
     mov sp, bp              ; at 0x7c00 (there are 638 kB of free memory there).
 
     mov bx, KERNEL_OFFSET
-    mov dh, 50               ; sectors to load kernel (increased for full kernel+IDT)
+    mov dh, 50               ; i think 50 is enough sectors for our kernel
     mov dl, [BOOT_DRIVE]
     call disk_load
 
@@ -86,30 +86,6 @@ KERNEL_OFFSET equ 0x1000
 
 bits 32
 
-VIDEO_MEMORY equ 0xb8000
-WHITE_ON_BLACK equ 0x0f
-
-print_string_pm: ; this was copied from github
-	pusha
-	mov edx, VIDEO_MEMORY
-
-print_string_pm_loop:
-	mov al, [ebx]
-	mov ah, WHITE_ON_BLACK
-
-	cmp al, 0
-	je  print_string_pm_end
-
-	mov [edx], ax
-
-	add ebx, 1
-	add edx, 2
-	jmp print_string_pm_loop
-
-print_string_pm_end:
-	popa
-	ret
-
 pm_main: ; The COOLER Daniel
     mov ax, DATA_SEG
 
@@ -122,19 +98,13 @@ pm_main: ; The COOLER Daniel
     mov ebp, 0x90000
     mov esp, ebp
 
-    ; mov ebx, MSG_PROT_MODE  ; disabled to avoid textmode write in VESA
-    ; call print_string_pm
-
-    jmp CODE_SEG:0x1000
+    jmp CODE_SEG:0x1000 ; this jmp expects instructions AT THAT EXACT point
 
     hlt
 
 .halt:
     hlt
     jmp .halt
-
-MSG_PROT_MODE:
-  db "we are in 32bit pm mode, pretty cool huh?", 0x0
 
 times 510-($-$$) db 0
 dw 0xAA55
