@@ -3,10 +3,17 @@
 #define FONT_IMPLEMENTATION
 #include "font.h"
 #include "port.h"
+#include "kernel.h"
+
+unsigned char *backbuffer_ptr;
+
+void vga_init() {
+    backbuffer_ptr = malloc(320*200);
+}
 
 void vga_pp(uint32_t x, uint32_t y, uint8_t color) {
     if (x >= VGA_WIDTH || y >= VGA_HEIGHT) return;
-    volatile uint8_t* fb = (volatile uint8_t*)VGA_ADDR;
+    volatile uint8_t* fb = backbuffer_ptr;
     fb[y * VGA_WIDTH + x] = color;
 }
 
@@ -39,7 +46,7 @@ void vga_print(uint32_t x, uint32_t y, char* msg, uint8_t color) {
 }
 
 void vga_cls(uint8_t color) {
-    volatile uint8_t* fb = (volatile uint8_t*)VGA_ADDR;
+    volatile uint8_t* fb = backbuffer_ptr;
     for (int y = 0; y < VGA_HEIGHT; y++) {
         for (int x = 0; x < VGA_WIDTH; x++) {
             fb[y * VGA_WIDTH + x] = color;
@@ -65,4 +72,8 @@ void vga_generate_pallete() {
             }
         }
     }
+}
+
+void vga_blit(void) {
+    memcpy((void*)VGA_ADDR, backbuffer_ptr, VGA_WIDTH * VGA_HEIGHT);
 }

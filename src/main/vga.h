@@ -11,7 +11,10 @@ void vga_cls(uint8_t color);
 void vga_pp(uint32_t x, uint32_t y, uint8_t color);
 void vga_char(uint32_t x, uint32_t y, char c, uint8_t color);
 void vga_print(uint32_t x, uint32_t y, char* msg, uint8_t color);
+void vga_init();
 
 void vga_generate_pallete(void);
+void vga_blit(void);
+void *memcpy(void *dest, const void *src, uint32_t n);
 
 #endif
