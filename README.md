@@ -11,4 +11,7 @@ i currently implemented:
 
 if you decide to compile it, you will see scrolling pallete test and text :) in the top left corner.
 
+
+![Program Output](screenshots/demo.png)
+
 have fun!
