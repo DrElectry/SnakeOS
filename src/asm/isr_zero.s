@@ -1,4 +1,5 @@
-bits 32
+bits 32 ; the div by zero isr
+; next isr/irq .s files are practically the same.
 
 global isr0_stub
 extern isr0_handler

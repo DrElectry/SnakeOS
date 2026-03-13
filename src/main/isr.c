@@ -1,22 +1,13 @@
 #include "vga.h"
+#include "pit.h"
 
 void isr0_handler() {
-    vga_print(0,0,"Division by 0.", 255);;
+    vga_print(0,0,"Division by 0.", 255);
     while (1) {}
 }
 
-void isr8_handler() {
-    vga_print(0,0,"page fault", 255);
-    while (1) {}
-}
-
-void isr13_handler() {
-    vga_print(0,0,"protection fault", 255);
-    while (1) {}
-}
-
-void isr14_handler() {
-    vga_print(0,0,"double fault", 255);
-    while (1) {}
+void irq0_handler() {
+    pit_handle_tick();
+    //vga_print(0,0,"tick.",255);
 }
 
