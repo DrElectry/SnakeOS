@@ -15,6 +15,9 @@ void kernel_main(void) {
             vga_pp(x, y, color);
         }
     }
+
+    volatile int x = 0;
+    int y = 1/x;
     
     while (1) {
         asm volatile("hlt");

@@ -22,9 +22,6 @@ void idt_init() {
     }
 
     idt_set_gate(0,  (uint32_t)isr0_stub,  0x08, 0x8E);
-    idt_set_gate(8,   (uint32_t)isr8_stub,  0x08, 0x8E);  // Double Fault
-    idt_set_gate(13, (uint32_t)isr13_stub, 0x08, 0xEE);  // General Protection, expects error code
-    idt_set_gate(14, (uint32_t)isr14_stub, 0x08, 0xEE); // Page Fault, expects error code
 
     asm volatile ("lidt (%0)" : : "r" (&idtr));
 }
