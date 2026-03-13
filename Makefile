@@ -1,3 +1,5 @@
+# beware - the SNAKEOS makefile build!
+
 AS = nasm
 CC = gcc
 LD = ld
