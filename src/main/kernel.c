@@ -1,8 +1,10 @@
 #include "vga.h"
 #include "idt.h"
+#include "pic.h"
 
 void kernel_main(void) {
     idt_init();
+    pic_remap();
 
     asm volatile ("sti");
 
@@ -13,7 +15,7 @@ void kernel_main(void) {
             vga_pp(x, y, color);
         }
     }
-
+    
     while (1) {
         asm volatile("hlt");
     }

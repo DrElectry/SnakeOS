@@ -1,7 +1,7 @@
 #include "vga.h"
 
 void isr0_handler() {
-    vga_print(0,0,"isr 0", 255);;
+    vga_print(0,0,"Division by 0.", 255);;
     while (1) {}
 }
 
