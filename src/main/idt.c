@@ -3,6 +3,7 @@
 
 extern void isr0_stub();
 extern void irq0_stub();
+extern void irq1_stub();
 
 void idt_set_gate(uint8_t n, uint32_t isr, uint16_t selector, uint8_t flags) {
     idt[n].isr_low   = isr & 0xFFFF;         // lower 16 bits
@@ -24,6 +25,7 @@ void idt_init() {
 
     idt_set_gate(0,  (uint32_t)isr0_stub,  0x08, 0x8E);
     idt_set_gate(0x20,  (uint32_t)irq0_stub,  0x08, 0x8E);
+    idt_set_gate(0x21, (uint32_t)irq1_stub, 0x08, 0x8E);
 
     asm volatile ("lidt (%0)" : : "r" (&idtr));
 }

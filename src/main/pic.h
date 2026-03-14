@@ -15,6 +15,6 @@
 
 void pic_remap();
 void pic_unmask_irq(uint8_t irq);
-static inline void send_eoi(unsigned char irq);
+void send_eoi(uint8_t irq);
 
 #endif

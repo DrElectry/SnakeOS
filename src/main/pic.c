@@ -21,7 +21,7 @@ void pic_unmask_irq(uint8_t irq) {
 }
 
 
-static inline void send_eoi(unsigned char irq) {
+void send_eoi(uint8_t irq) {
     if (irq >= 8) {
         outb(0xA0, 0x20);   // slave
     }
