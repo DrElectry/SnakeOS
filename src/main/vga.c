@@ -49,7 +49,7 @@ void vga_print(uint32_t x, uint32_t y, char* msg, uint8_t color) {
 
 void vga_cls(uint8_t color) {
     memset(backbuffer_ptr, color, 64000);
-    memset(VGA_ADDR, color, 64000);
+    // memset(VGA_ADDR, color, 64000); // Removed to fix flickering
 }
 
 
