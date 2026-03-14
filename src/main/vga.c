@@ -3,7 +3,7 @@
 #define FONT_IMPLEMENTATION
 #include "font.h"
 #include "port.h"
-#include "kernel.h"
+#include "memory.h"
 
 unsigned char *backbuffer_ptr;
 
@@ -46,14 +46,12 @@ void vga_print(uint32_t x, uint32_t y, char* msg, uint8_t color) {
     }
 }
 
+
 void vga_cls(uint8_t color) {
-    volatile uint8_t* fb = backbuffer_ptr;
-    for (int y = 0; y < VGA_HEIGHT; y++) {
-        for (int x = 0; x < VGA_WIDTH; x++) {
-            fb[y * VGA_WIDTH + x] = color;
-        }
-    }
+    memset(backbuffer_ptr, color, 64000);
+    memset(VGA_ADDR, color, 64000);
 }
+
 
 void vga_generate_pallete() {
     uint8_t r, g, b;

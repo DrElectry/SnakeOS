@@ -3,7 +3,7 @@
 
 #include "stdint.h"
 
-#define VGA_ADDR 0xA0000
+#define VGA_ADDR ((void*)0xA0000)
 #define VGA_WIDTH 320
 #define VGA_HEIGHT 200
 
@@ -15,6 +15,5 @@ void vga_init();
 
 void vga_generate_pallete(void);
 void vga_blit(void);
-void *memcpy(void *dest, const void *src, uint32_t n);
 
 #endif
