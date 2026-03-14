@@ -8,7 +8,7 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
 ![Demo](screenshots/3.png)
 
 ## What i've already done
-- Custom made protected mode bootloader
+- Custom MBR protected mode bootloader
 - 320x200x8 graphics mode
 - GDT, IDT, and PIC setup
 - Timer implementation (`pit.h` / `pit.c`)
