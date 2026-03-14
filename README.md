@@ -5,7 +5,7 @@
 ## About
 SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily inspired by TETRIS-OS.  
 
-![Demo](screenshots/5.png)
+![Demo](screenshots/4.png)
 
 ## What i've already done
 - Custom MBR protected mode bootloader
