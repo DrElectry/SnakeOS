@@ -45,6 +45,7 @@ void snake_init(Game *game) {
     game->snake.body[2].y = ROWS / 2;
     game->snake.dir = 'D';
     game->alive = 1;
+    game->pending_dir = 0;
     rand_seed = pit_get_global_ticks();
     dx['w'] = dx['W'] = 0; dy['w'] = dy['W'] = -1;
     dx['a'] = dx['A'] = -1; dy['a'] = dy['A'] = 0;
@@ -67,6 +68,21 @@ void snake_set_direction(Game *game, char dir) {
 
 void snake_update(Game *game) {
     if (!game->alive) return;
+
+    // Apply pending direction
+    if (game->pending_dir != 0) {
+        char dir = game->pending_dir;
+        if (dir >= 'a' && dir <= 'z') dir -= 32;
+        char curr = game->snake.dir;
+        if ((dir == 'W' && curr != 'S') ||
+            (dir == 'S' && curr != 'W') ||
+            (dir == 'A' && curr != 'D') ||
+            (dir == 'D' && curr != 'A')) {
+            game->snake.dir = dir;
+        }
+        game->pending_dir = 0;
+    }
+
     Point head = game->snake.body[0];
     int d = game->snake.dir;
     Point new_head = {head.x + dx[d], head.y + dy[d]};
@@ -75,7 +91,7 @@ void snake_update(Game *game) {
         return;
     }
     int i;
-    for (i = 0; i < game->snake.length; i++) {
+    for (i = 1; i < game->snake.length; i++) {
         if (new_head.x == game->snake.body[i].x && new_head.y == game->snake.body[i].y) {
             game->alive = 0;
             return;
@@ -99,11 +115,26 @@ void snake_draw(Game *game) {
     gfx_square(game->food.x * CELL_SIZE, game->food.y * CELL_SIZE, CELL_SIZE, CELL_SIZE, FOOD_COLOR);
 }
 
+void snake_queue_direction(Game *game, uint32_t scancode) {
+    uint8_t code = scancode & 0xFF;
+    char dir = 0;
+    if (code == 0x11) dir = 'w'; // W up
+    else if (code == 0x1E) dir = 'a'; // A left
+    else if (code == 0x1F) dir = 's'; // S down
+    else if (code == 0x20) dir = 'd'; // D right
+    if (dir != 0) {
+        if (dir >= 'a' && dir <= 'z') dir -= 32;
+        char curr = game->snake.dir;
+        if ((dir == 'W' && curr != 'S') ||
+            (dir == 'S' && curr != 'W') ||
+            (dir == 'A' && curr != 'D') ||
+            (dir == 'D' && curr != 'A')) {
+            game->pending_dir = dir;
+        }
+    }
+}
 
 void snake_handle_input(Game *game, uint32_t scancode) {
-    uint8_t code = scancode & 0xFF;
-    if (code == 0x11) snake_set_direction(game, 'w'); // W up
-    else if (code == 0x1E) snake_set_direction(game, 'a'); // A left
-    else if (code == 0x1F) snake_set_direction(game, 's'); // S down
-    else if (code == 0x20) snake_set_direction(game, 'd'); // D right
+    snake_queue_direction(game, scancode);
 }
+

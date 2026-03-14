@@ -19,21 +19,24 @@ typedef struct {
 typedef struct {
     Point body[MAX_SNAKE];
     int length;
-    char dir; // 'U', 'D', 'L', 'R'
+    char dir; // 'W', 'A', 'S', 'D'
 } Snake;
 
 typedef struct {
     Snake snake;
     Point food;
     int alive;
+    char pending_dir;
 } Game;
 
 void snake_place_food(Game* game);
 void snake_init(Game *game);
 void snake_update(Game *game);
 void snake_set_direction(Game *game, char dir);
+void snake_queue_direction(Game *game, uint32_t scancode);
 
 void snake_draw(Game *game);
 void snake_handle_input(Game *game, uint32_t scancode);
 
 #endif
+
