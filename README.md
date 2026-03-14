@@ -24,8 +24,8 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
 
 
 ## Requirements
-. A modern GCC compiler
-. NASM assembler for compiling the bootloader and kernel
+- A modern GCC compiler
+- NASM assembler for compiling the bootloader and kernel
 
 
 ## How to run
@@ -39,8 +39,8 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
     make all
     ```
 4. This will generate `floppy.img` which you can:
-    . Run in QEMU or any other x86 emulator, or
-    . Write to a floppy/USB using dd on Linux or rufus in dd mode on Windows  
+    - Run in QEMU or any other x86 emulator, or
+    - Write to a floppy/USB using dd on Linux or rufus in dd mode on Windows  
       *(abt mac os, i dont know lmao)*
 
 
