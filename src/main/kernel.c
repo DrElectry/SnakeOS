@@ -5,44 +5,7 @@
 #include "stdint.h"
 #include "gfx.h"
 #include "keyboard.h"
-
-int itoa(uint32_t value, char* buffer, int base) { // itoa for this keyboard test
-    if (base < 2 || base > 16) { buffer[0] = '\0'; return 0; }
-
-    char temp[33];
-    int i = 0;
-
-    do {
-        uint32_t digit = value % base;
-        temp[i++] = (digit < 10) ? ('0' + digit) : ('A' + (digit - 10));
-        value /= base;
-    } while (value > 0);
-
-    int j = 0;
-    while (i > 0) {
-        buffer[j++] = temp[--i];
-    }
-    buffer[j] = '\0';
-    return j;
-}
-
-static char keymap[128] = {
-    0,  27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', 0,
-    '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', 0,
-    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`',  0, '\\', 'z',
-    'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, '*', 0, ' ', 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-
-char get_char(uint32_t scancode) {
-    if (scancode & 0xFF00) return 0; // ignore release/extend
-    uint8_t code = scancode & 0xFF;
-    if (code >= 128) return 0;
-    return keymap[code];
-}
+#include "functions.h"
 
 void kernel_main(void) {
     idt_init();
@@ -50,7 +13,9 @@ void kernel_main(void) {
     pit_init(360);
     pic_unmask_irq(0);
     pic_unmask_irq(1);
+
     asm volatile("sti");
+    
     vga_init();
     vga_generate_pallete();
 
@@ -76,8 +41,6 @@ void kernel_main(void) {
                     break;
             }
         }
-
-
 
         gfx_text(0,0,"SNAKE OS", RGB233(3,7,7), RGB233(2,5,5), 1,1);
 

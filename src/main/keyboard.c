@@ -5,6 +5,24 @@ uint32_t kb_head = 0;
 uint32_t kb_tail = 0;
 uint8_t scancode_state[NUM_SCANCODES];
 
+static char keymap[128] = {
+    0,  27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', 0,
+    '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', 0,
+    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`',  0, '\\', 'z',
+    'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, '*', 0, ' ', 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
+char keyboard_get_char(uint32_t scancode) {
+    if (scancode & 0xFF00) return 0; // ignore release/extend
+    uint8_t code = scancode & 0xFF;
+    if (code >= 128) return 0;
+    return keymap[code];
+}
+
 void keyboard_push(uint32_t scancode) {
     keyboard_buffer[kb_head] = scancode;
     kb_head = (kb_head + 1) % KEYBOARD_BUFFER_SIZE;
