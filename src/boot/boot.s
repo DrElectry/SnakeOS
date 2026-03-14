@@ -60,7 +60,7 @@ disk_error:
 
 main: ; Daniel
     cli
-    xor ax, ax
+    xor ax, ax          ; this was the minor issue preventing from booting on a real hardwaresssss
     mov ds, ax          ; make DS=0 so we can access BOOT_DRIVE
     mov es, ax          ; set ES for disk_load target
     mov ss, ax
