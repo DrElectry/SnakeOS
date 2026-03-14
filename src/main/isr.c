@@ -4,6 +4,7 @@
 #include "keyboard.h"
 #include "pic.h"
 #include "speaker.h"
+#include "kernel.h"
 
 static uint8_t prefix_e0 = 0;
 static uint8_t prefix_f0 = 0;
@@ -12,8 +13,12 @@ static uint8_t prefix_f0 = 0;
 // we just extern them because i trust extern more than headers
 
 void isr0_handler() {
-    vga_print(0,0,"Division by 0.", 255);
-    vga_blit();
+    panic("Division by zero.");
+    while (1) {}
+}
+
+void isr14_handler() {
+    panic("Double fault.");
     while (1) {}
 }
 

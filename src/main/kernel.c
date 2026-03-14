@@ -9,13 +9,23 @@
 #include "functions.h"
 #include "speaker.h"
 
+void panic(char* msg) {
+    vga_cls(RGB233(3,0,0));
+
+    gfx_text(0,0,"Kernel panic.", RGB233(3,7,7), RGB233(2,5,5), 1,1);
+    gfx_text(0,16,msg, RGB233(3,7,7), RGB233(2,5,5), 1,1);
+
+    vga_blit();
+    while (1) {}
+}
+
 Game game;
 static uint32_t last_update = 0;
 
 void kernel_main(void) {
     idt_init();
     pic_remap();
-pit_init(360);
+    pit_init(360);
     pic_unmask_irq(0);
     pic_unmask_irq(1);
 

@@ -2,6 +2,7 @@
 #include "stdint.h"
 
 extern void isr0_stub();
+extern void isr14_stub();
 extern void irq0_stub();
 extern void irq1_stub();
 
@@ -24,6 +25,7 @@ void idt_init() {
     }
 
     idt_set_gate(0,  (uint32_t)isr0_stub,  0x08, 0x8E);
+    idt_set_gate(14,  (uint32_t)isr14_stub,  0x08, 0x8E);
     idt_set_gate(0x20,  (uint32_t)irq0_stub,  0x08, 0x8E);
     idt_set_gate(0x21, (uint32_t)irq1_stub, 0x08, 0x8E);
 
