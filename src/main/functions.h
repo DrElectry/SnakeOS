@@ -5,7 +5,7 @@
 
 #include "stdint.h"
 
-int itoa(uint32_t value, char* buffer, int base) {
+static int itoa(uint32_t value, char* buffer, int base) {
     if (base < 2 || base > 16) { buffer[0] = '\0'; return 0; }
 
     char temp[33];
@@ -23,6 +23,21 @@ int itoa(uint32_t value, char* buffer, int base) {
     }
     buffer[j] = '\0';
     return j;
+}
+
+static void int_to_str(int n, char* s) {
+    int i = 0;
+    if (n == 0) {
+        s[0] = '0'; s[1] = 0; return;
+    }
+    while (n > 0) {
+        s[i++] = '0' + n % 10; n /= 10;
+    }
+    s[i] = 0;
+    int j = 0, k = i - 1;
+    while (j < k) {
+        char t = s[j]; s[j] = s[k]; s[k] = t; j++; k--;
+    }
 }
 
 #endif

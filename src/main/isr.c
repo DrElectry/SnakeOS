@@ -3,6 +3,7 @@
 #include "port.h"
 #include "keyboard.h"
 #include "pic.h"
+#include "speaker.h"
 
 static uint8_t prefix_e0 = 0;
 static uint8_t prefix_f0 = 0;
@@ -18,6 +19,7 @@ void isr0_handler() {
 
 void irq0_handler() {
     pit_handle_tick();
+    beep_tick();
     //vga_print(0,0,"tick.",255);
 }
 

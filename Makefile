@@ -1,9 +1,11 @@
 AS = nasm
 CC = gcc
 LD = ld
+
 BOOT = src/boot/boot.s
 SOURCES = $(wildcard src/main/*.c)
 ASM_SOURCES = $(wildcard src/asm/*.s)
+
 OBJ = $(SOURCES:.c=.o)
 ASM_OBJ = $(ASM_SOURCES:.s=.o)
 OBJ += $(ASM_OBJ)
@@ -25,7 +27,10 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 run: all
-	$(QEMU) -fda $(TARGET)
+	$(QEMU) \
+		-audiodev pa,id=snd0 \
+		-machine pcspk-audiodev=snd0 \
+		-fda $(TARGET)
 
 src/main/%.o: src/main/%.c
 	$(CC) -m32 -nostdlib -ffreestanding -fno-pic -fno-stack-protector -fno-builtin -c $< -o $@
