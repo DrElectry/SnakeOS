@@ -43,5 +43,9 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
     - Write to a floppy/USB using dd on Linux or rufus in dd mode on Windows  
       *(abt mac os, i dont know lmao)*
 
+    - If you want to run it in QEMU, use this command.
+    ```bash
+    qemu-system-i386 -audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 -fda floppy.img
+    ```
 
 The latest commit had been tested on real hardware.
