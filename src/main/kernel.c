@@ -45,7 +45,9 @@ void kernel_main(void) {
             }
         }
 
-        vga_print(0,0,":)",255);
+        gfx_square(80,80,50,50,RGB233(0,7,0));
+
+
         vga_blit();
         asm volatile("hlt");
     }
