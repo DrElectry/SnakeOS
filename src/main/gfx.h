@@ -6,6 +6,9 @@
 #include "stdint.h"
 #include "vga.h"
 
+// gfx.h is created for cool ass advanced graphics
+// like shadow text, rounded rectangles, you got me
+
 void gfx_square(uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t color);
 void gfx_square_rounded(uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t radius, uint32_t color);
 void gfx_text(uint32_t x, uint32_t y, char* msg, uint32_t color, uint32_t shadow_color, uint32_t shadow_x_offset, uint32_t shadow_y_offset);
