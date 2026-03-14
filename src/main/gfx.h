@@ -3,6 +3,14 @@
 
 #define RGB233(r,g,b) (((r & 0x3) << 6) | ((g & 0x7) << 3) | (b & 0x7)) // max values are 3:7:7 inside this macro
 
+#define COLOR_WHITE RGB233(3,7,7)
+#define COLOR_BLACK 0
+#define COLOR_RED RGB233(3,0,0)
+#define COLOR_GREEN RGB233(0,7,0)
+#define COLOR_BLUE RGB233(0,0,7)
+#define COLOR_YELLOW RGB233(3,7,0)
+#define COLOR_CYAN RGB233(0,7,7)
+
 #include "stdint.h"
 #include "vga.h"
 

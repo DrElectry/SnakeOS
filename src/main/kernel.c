@@ -3,6 +3,7 @@
 #include "pic.h"
 #include "pit.h"
 #include "stdint.h"
+#include "gfx.h"
 
 #define HEAP_START 0x100000
 #define HEAP_END 0x200000
@@ -38,14 +39,19 @@ void kernel_main(void) {
     while (1) {
         uint32_t t = pit_get_global_ticks();
 
-        for (int y = 0; y < 200; y++) {
-            unsigned char color = ((y + t) % 200) * 255 / 199;
-            for (int x = 0; x < 320; x++) {
-                vga_pp(x, y, color);
-            }
+        if (t % 360 >= 180) {
+            vga_cls(RGB233(3,0,0));
+        } else {
+            vga_cls(RGB233(0,0,7));
         }
 
-        gfx_square(80,80,50,50,RGB233(0,7,0));
+        gfx_square_rounded(80,83,50,50,15,RGB233(0,3,3));
+        gfx_square_rounded(79,79,52,52,15,RGB233(0,4,4));
+        gfx_square_rounded(80,80,50,50,15,RGB233(0,7,7));
+
+        vga_print(0,1,"SNAKE OS", COLOR_BLACK);
+
+        vga_print(0,0,"SNAKE OS",COLOR_WHITE);
 
 
         vga_blit();

@@ -19,10 +19,10 @@ void vga_pp(uint32_t x, uint32_t y, uint8_t color) {
 
 void vga_char(uint32_t x, uint32_t y, char c, uint8_t color) {
     if (c < 32 || c > 126) return;
-    unsigned char* glyph = letters[c - 32];
-    
-    for (uint32_t row = 0; row < 13; ++row) {
-        unsigned char bits = glyph[12 - row];
+    unsigned char* glyph = letters[c];
+
+    for (uint32_t row = 0; row < 16; ++row) {
+        unsigned char bits = glyph[row];
         for (uint32_t col = 0; col < 8; ++col) {
             if (bits & (0x80 >> col)) {
                 vga_pp(x + col, y + row, color);
