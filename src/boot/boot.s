@@ -59,7 +59,15 @@ disk_error:
     jmp disk_error
 
 main: ; Daniel
+    cli
+    xor ax, ax
+    mov ds, ax          ; make DS=0 so we can access BOOT_DRIVE
+    mov es, ax          ; set ES for disk_load target
+    mov ss, ax
+    mov sp, 0x9000
+
     mov [BOOT_DRIVE], dl
+    sti
 
     mov ax, 0x13
     int 0x10 ; prestige 320x200x256 text mode
