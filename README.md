@@ -7,14 +7,14 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
 
 ![Demo](screenshots/1.png)
 
-What i've already done
+## What i've already done
 . Custom made protected mode bootloader
 . 320x200x8 graphics mode
 . GDT, IDT, and PIC setup
 . Timer implementation (`pit.h` / `pit.c`)
 . 8x16 font rendering
 
-What do i need to do
+## What do i need to do
 . Keyboard driver
 . Sprites for Snake, Apple, Background, etc.
 . Core Snake game
