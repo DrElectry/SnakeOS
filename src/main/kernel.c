@@ -48,7 +48,8 @@ void kernel_main(void) {
         vga_print(0,1,"Hello, world!",RGB233(0,0,0));
         vga_print(0,0,"Hello, world!",RGB233(3,7,7));
 
-        gfx_square(80,80,50,50,RGB233(0,7,0));
+        gfx_square_rounded(100,102,50,50,15,RGB233(0,3,0));
+        gfx_square_rounded(100,100,50,50,15,RGB233(0,7,0));
 
 
         vga_blit();
