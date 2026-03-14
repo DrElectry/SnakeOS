@@ -7,7 +7,7 @@
 
 #define WIDTH 320
 #define HEIGHT 200
-#define CELL_SIZE 4
+#define CELL_SIZE 16
 #define COLS (WIDTH / CELL_SIZE)
 #define ROWS (HEIGHT / CELL_SIZE)
 #define MAX_SNAKE 500

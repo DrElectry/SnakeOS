@@ -21,11 +21,12 @@ void panic(char* msg) {
 
 Game game;
 static uint32_t last_update = 0;
+static int was_alive = 1;
 
 void kernel_main(void) {
     idt_init();
     pic_remap();
-    pit_init(360);
+    pit_init(180);
     pic_unmask_irq(0);
     pic_unmask_irq(1);
 
@@ -36,7 +37,7 @@ void kernel_main(void) {
 
     snake_init(&game);
 
-    beep(330, 400);
+    beep(330, 10);
 
     while (1) {
         uint32_t scancode = keyboard_pop();
@@ -52,11 +53,14 @@ void kernel_main(void) {
         uint32_t ticks = pit_get_global_ticks();
         if (ticks - last_update >= 15) {
             snake_update(&game);
+            if (game.alive == 0 && was_alive == 1) {
+                beep(400, 30);
+            }
+            was_alive = game.alive;
             last_update = ticks;
         }
         vga_cls(RGB233(0,2,1));
         snake_draw(&game);
-
 
         gfx_text(0,0,"SNAKE OS", RGB233(3,7,7), RGB233(0,0,0), 1,1);
 
@@ -65,7 +69,7 @@ void kernel_main(void) {
         gfx_text(80,0,score_buf, RGB233(3,7,7), RGB233(0,0,0), 1,1);
 
         if (!game.alive) {
-            gfx_text(100,80,"GAME OVER", RGB233(7,0,0), RGB233(0,0,0), 2,2);
+            gfx_text(120,80,"GAME OVER", RGB233(7,0,0), RGB233(0,0,0), 2,2);
             gfx_text(60,110,"Press any key to restart", RGB233(7,7,7), RGB233(0,0,0), 1,1);
         }
 

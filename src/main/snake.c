@@ -2,10 +2,15 @@
 #include "gfx.h"
 #include "pit.h"
 #include "vga.h"
+#include "speaker.h"
 
 #define SNAKE_COLOR RGB233(0,7,3)
-#define FOOD_COLOR RGB233(7,2,0)
+#define FOOD_COLOR RGB233(3,0,0)
+#define FOOD_SHADOW_COLOR RGB233(1,0,0)
 #define BG_COLOR RGB233(0,2,1)
+#define SNAKE_SHADOW_COLOR RGB233(0,1,0)
+#define BG_COLOR RGB233(0,2,1)
+#define BG_GRID_COLOR RGB233(0,3,2)
 
 static int dx[256] = {0};
 static int dy[256] = {0};
@@ -104,15 +109,24 @@ void snake_update(Game *game) {
     if (new_head.x == game->food.x && new_head.y == game->food.y) {
         game->snake.length++;
         snake_place_food(game);
+        beep(200, 10);
     }
 }
 
 void snake_draw(Game *game) {
     int i;
-    for (i = 0; i < game->snake.length; i++) {
-        gfx_square(game->snake.body[i].x * CELL_SIZE, game->snake.body[i].y * CELL_SIZE, CELL_SIZE, CELL_SIZE, SNAKE_COLOR);
+    for (int x = 0; x < COLS; x++) {
+        for (int y = 0; y < ROWS; y++) {
+            int color = ((x + y) % 2 == 0) ? BG_COLOR : BG_GRID_COLOR;
+            gfx_square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color);
+        }
     }
-    gfx_square(game->food.x * CELL_SIZE, game->food.y * CELL_SIZE, CELL_SIZE, CELL_SIZE, FOOD_COLOR);
+    for (i = 0; i < game->snake.length; i++) {
+        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE + 1, game->snake.body[i].y * CELL_SIZE + 1, CELL_SIZE, CELL_SIZE, 4, SNAKE_SHADOW_COLOR);
+        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE, game->snake.body[i].y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 4, SNAKE_COLOR);
+    }
+    gfx_square_rounded(game->food.x * CELL_SIZE + 1, game->food.y * CELL_SIZE + 1, CELL_SIZE, CELL_SIZE, 8, FOOD_SHADOW_COLOR);
+    gfx_square_rounded(game->food.x * CELL_SIZE, game->food.y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 8, FOOD_COLOR);
 }
 
 void snake_queue_direction(Game *game, uint32_t scancode) {
