@@ -98,11 +98,13 @@ void kernel_main(void) {
 
 
 
-        vga_print(0,1,"SNAKE OS",RGB233(0,0,0));
-        vga_print(0,0,"SNAKE OS",RGB233(3,7,7));
+        gfx_text(0,0,"SNAKE OS", RGB233(3,7,7), RGB233(2,5,5), 1,1);
 
-        gfx_square_rounded(100,102,50,50,15,RGB233(0,3,0));
-        gfx_square_rounded(100,100,50,50,15,RGB233(0,7,0));
+        gfx_text(0,13,"Test by WASD", RGB233(3,7,7), RGB233(2,5,5), 1,1);
+
+        gfx_square_rounded(100,103,50,50,15,RGB233(0,2,1));
+        gfx_square_rounded(99,99,52,52,15,RGB233(0,3,1));
+        gfx_square_rounded(100,100,50,50,15,RGB233(0,7,1));
 
         vga_blit();
         asm volatile("hlt");

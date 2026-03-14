@@ -39,4 +39,9 @@ void gfx_square_rounded(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
     }
 }
 
+void gfx_text(uint32_t x, uint32_t y, char* msg, uint32_t color, uint32_t shadow_color, uint32_t shadow_x_offset, uint32_t shadow_y_offset) {
+    vga_print(x+shadow_x_offset,y+shadow_y_offset,msg,shadow_color);
+    vga_print(x,y,msg,color);
+}
+
 #endif
