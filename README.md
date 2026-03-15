@@ -3,7 +3,7 @@
 ## About
 SNAKE-OS is a 32-bit operating system which is heavily inspired by TETRIS-OS
 
-![Demo](screenshots/5.png)
+![Demo](screenshots/6.png)
 
 ## Features:
 - It's 32-bit (x86)
