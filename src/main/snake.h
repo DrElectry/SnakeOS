@@ -13,6 +13,15 @@
 #define ROWS ((HEIGHT - FIELD_OFFSET_Y) / CELL_SIZE)
 #define MAX_SNAKE 500
 
+#define SNAKE_COLOR RGB233(0,7,3)
+#define FOOD_COLOR RGB233(3,0,0)
+#define FOOD_SHADOW_COLOR RGB233(1,0,0)
+#define BG_COLOR RGB233(0,2,1)
+#define SNAKE_SHADOW_COLOR RGB233(0,1,0)
+#define BG_COLOR RGB233(0,2,1)
+#define BG_GRID_COLOR RGB233(0,3,2)
+#define FOOD_SPECULAR RGB233(3,6,6)
+
 typedef struct {
     int x,y;
 } Point;

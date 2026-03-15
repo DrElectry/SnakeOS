@@ -4,15 +4,6 @@
 #include "vga.h"
 #include "speaker.h"
 
-#define SNAKE_COLOR RGB233(0,7,3)
-#define FOOD_COLOR RGB233(3,0,0)
-#define FOOD_SHADOW_COLOR RGB233(1,0,0)
-#define BG_COLOR RGB233(0,2,1)
-#define SNAKE_SHADOW_COLOR RGB233(0,1,0)
-#define BG_COLOR RGB233(0,2,1)
-#define BG_GRID_COLOR RGB233(0,3,2)
-#define FOOD_SPECULAR RGB233(3,6,6)
-
 static int dx[256] = {0};
 static int dy[256] = {0};
 
