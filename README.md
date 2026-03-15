@@ -1,34 +1,25 @@
-# ! BEWARE ! WIP!!!
-
 # SNAKE-OS
 
 ## About
-SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily inspired by TETRIS-OS.  
+SNAKE-OS is a 32-bit operating system which is heavily inspired by TETRIS-OS
 
 ![Demo](screenshots/5.png)
 
-## What i've already done
-- Custom MBR protected mode bootloader
-- 320x200x8 graphics mode
-- GDT, IDT, and PIC setup
-- Timer implementation (`pit.h` / `pit.c`)
-- 8x16 font rendering
-- Keyboard driver
-- Core Snake game
-- General improvement of graphics.
-- Audio driver
-
-## What do i need to do
-- Music and menu
+## Features:
+- It's 32-bit (x86)
+- Custom made MBR bootloader.
+- Double buffered 320x200 8-bit 60 FPS graphics.
+- Snake.
+- Square waves audio and music.
+- Entire OS is only 10 KB in size.
 
 ## Controls
 -   WASD to move.
--   *(more will be added lateer)*
+-   ESC ingame to switch back to menu.
 
 ## Requirements
-- A modern GCC compiler
-- NASM assembler for compiling the bootloader and kernel
-
+- A modern GCC compiler.
+- NASM assembler.
 
 ## How to run
 1. Ensure you have the requirements installed.
@@ -49,5 +40,6 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
     ```bash
     qemu-system-i386 -audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 -fda floppy.img
     ```
-
-The latest commit had been tested on real hardware.
+## Important to know
+- The latest commit had been tested on real hardware.
+- The OS uses the PC speaker, which may not work on all hardware.ss
