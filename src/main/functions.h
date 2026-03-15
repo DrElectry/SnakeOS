@@ -5,6 +5,12 @@
 
 #include "stdint.h"
 
+static int abs(int x) {
+    if (x < 0)
+        return -x;
+    return x;
+}
+
 static int itoa(uint32_t value, char* buffer, int base) {
     if (base < 2 || base > 16) { buffer[0] = '\0'; return 0; }
 

@@ -60,18 +60,22 @@ void kernel_main(void) {
             last_update = ticks;
         }
         vga_cls(RGB233(0,2,1));
+
         snake_draw(&game);
 
-        gfx_text(0,0,"SNAKE OS", RGB233(3,7,7), RGB233(0,0,0), 1,1);
+        gfx_text(0,4,"SNAKE OS", RGB233(3,7,7), RGB233(0,0,0), 1,1);
 
         char score_buf[16];
         int_to_str(game.snake.length, score_buf);
-        gfx_text(80,0,score_buf, RGB233(3,7,7), RGB233(0,0,0), 1,1);
+        gfx_text(80,4,score_buf, RGB233(3,7,7), RGB233(0,0,0), 1,1);
+
 
         if (!game.alive) {
-            gfx_text(120,80,"GAME OVER", RGB233(7,0,0), RGB233(0,0,0), 2,2);
+            uint32_t game_over_color = ((pit_get_global_ticks() / 40) % 2 == 0) ? RGB233(7,0,0) : RGB233(7,7,0);
+            gfx_text(120,80,"GAME OVER", game_over_color, RGB233(0,0,0), 2,2);
             gfx_text(60,110,"Press any key to restart", RGB233(7,7,7), RGB233(0,0,0), 1,1);
         }
+
 
         vga_blit();
         asm volatile("hlt");

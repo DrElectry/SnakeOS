@@ -5,7 +5,7 @@
 ## About
 SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily inspired by TETRIS-OS.  
 
-![Demo](screenshots/4.png)
+![Demo](screenshots/5.png)
 
 ## What i've already done
 - Custom MBR protected mode bootloader
@@ -15,13 +15,15 @@ SNAKE-OS is a 32-bit operating system created out of boredom. It is heavily insp
 - 8x16 font rendering
 - Keyboard driver
 - Core Snake game
-
-## What do i need to do
-- Sprites for Snake, Apple, Background, etc.
 - General improvement of graphics.
 - Audio driver
+
+## What do i need to do
 - Music and menu
 
+## Controls
+-   WASD to move.
+-   *(more will be added lateer)*
 
 ## Requirements
 - A modern GCC compiler

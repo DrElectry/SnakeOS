@@ -9,7 +9,8 @@
 #define HEIGHT 200
 #define CELL_SIZE 16
 #define COLS (WIDTH / CELL_SIZE)
-#define ROWS (HEIGHT / CELL_SIZE)
+#define FIELD_OFFSET_Y 16
+#define ROWS ((HEIGHT - FIELD_OFFSET_Y) / CELL_SIZE)
 #define MAX_SNAKE 500
 
 typedef struct {

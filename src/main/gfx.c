@@ -1,11 +1,41 @@
 #include "gfx.h"
 #include "stdint.h"
 #include "vga.h"
+#include "functions.h"
 
 void gfx_square(uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t color) {
     for (int i = x; i < x+width; i++) {
         for (int j = y; j < y+height; j++) {
             vga_pp(i,j,color);
+        }
+    }
+}
+
+void gfx_line(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, uint32_t color) {
+    int dx = abs((int)x2 - (int)x1);
+    int dy = abs((int)y2 - (int)y1);
+
+    int sx = x1 < x2 ? 1 : -1;
+    int sy = y1 < y2 ? 1 : -1;
+
+    int err = dx - dy;
+
+    while (1) {
+        vga_pp(x1, y1, color);
+
+        if (x1 == x2 && y1 == y2)
+            break;
+
+        int e2 = 2 * err;
+
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
         }
     }
 }

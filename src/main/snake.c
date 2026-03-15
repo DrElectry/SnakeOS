@@ -11,6 +11,7 @@
 #define SNAKE_SHADOW_COLOR RGB233(0,1,0)
 #define BG_COLOR RGB233(0,2,1)
 #define BG_GRID_COLOR RGB233(0,3,2)
+#define FOOD_SPECULAR RGB233(3,6,6)
 
 static int dx[256] = {0};
 static int dy[256] = {0};
@@ -76,6 +77,7 @@ void snake_update(Game *game) {
 
     // Apply pending direction
     if (game->pending_dir != 0) {
+        beep(330, 10);
         char dir = game->pending_dir;
         if (dir >= 'a' && dir <= 'z') dir -= 32;
         char curr = game->snake.dir;
@@ -114,19 +116,22 @@ void snake_update(Game *game) {
 }
 
 void snake_draw(Game *game) {
+    uint32_t offset_y = 24;
     int i;
     for (int x = 0; x < COLS; x++) {
         for (int y = 0; y < ROWS; y++) {
             int color = ((x + y) % 2 == 0) ? BG_COLOR : BG_GRID_COLOR;
-            gfx_square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color);
+            gfx_square(x * CELL_SIZE, (y * CELL_SIZE) + offset_y, CELL_SIZE, CELL_SIZE, color);
         }
     }
+    gfx_line(0,24,320,24,RGB233(0,1,0));
     for (i = 0; i < game->snake.length; i++) {
-        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE + 1, game->snake.body[i].y * CELL_SIZE + 1, CELL_SIZE, CELL_SIZE, 4, SNAKE_SHADOW_COLOR);
-        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE, game->snake.body[i].y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 4, SNAKE_COLOR);
+        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE + 1, game->snake.body[i].y * CELL_SIZE + 1 + offset_y, CELL_SIZE, CELL_SIZE, 4, SNAKE_SHADOW_COLOR);
+        gfx_square_rounded(game->snake.body[i].x * CELL_SIZE, game->snake.body[i].y * CELL_SIZE + offset_y, CELL_SIZE, CELL_SIZE, 4, SNAKE_COLOR);
     }
-    gfx_square_rounded(game->food.x * CELL_SIZE + 1, game->food.y * CELL_SIZE + 1, CELL_SIZE, CELL_SIZE, 8, FOOD_SHADOW_COLOR);
-    gfx_square_rounded(game->food.x * CELL_SIZE, game->food.y * CELL_SIZE, CELL_SIZE, CELL_SIZE, 8, FOOD_COLOR);
+    gfx_square_rounded(game->food.x * CELL_SIZE - 1, game->food.y * CELL_SIZE - 1 + offset_y, CELL_SIZE, CELL_SIZE, 8, FOOD_SPECULAR);
+    gfx_square_rounded(game->food.x * CELL_SIZE + 1, game->food.y * CELL_SIZE + 1 + offset_y, CELL_SIZE, CELL_SIZE, 8, FOOD_SHADOW_COLOR);
+    gfx_square_rounded(game->food.x * CELL_SIZE, game->food.y * CELL_SIZE + offset_y, CELL_SIZE, CELL_SIZE, 8, FOOD_COLOR);
 }
 
 void snake_queue_direction(Game *game, uint32_t scancode) {
